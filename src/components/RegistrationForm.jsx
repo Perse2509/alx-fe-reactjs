@@ -1,59 +1,73 @@
 import { useState } from "react";
 
-function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
 
-  const [error, setError] = useState("");
+const RegistrationForm = () => {
+const [formData, setFormData] = useState({
+username: "",
+email: "",
+password: "",
+});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+const [error, setError] = useState("");
+const handleChange = (e) => {
+const { name, value } = e.target;
+setFormData({ ...formData, [name]: value });
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    if (!formData.username || !formData.email || !formData.password) {
-      setError("All fields are required.");
-      return;
-    }
+const handleSubmit = (e) => {
+e.preventDefault();
 
-    setError("");
-    console.log("Submitting to mock API...", formData);
 
-    setTimeout(() => {
-      alert("User registered successfully!");
-    }, 700);
-  };
-
-  return (
-    <div style={{ maxWidth: "450px", margin: "2rem auto" }}>
-      <h2>Registration Form (Controlled Components)</h2>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input name="username" value={formData.username} onChange={handleChange} />
-
-        <label>Email</label>
-        <input name="email" type="email" value={formData.email} onChange={handleChange} />
-
-        <label>Password</label>
-        <input name="password" type="password" value={formData.password} onChange={handleChange} />
-
-        <button>Register</button>
-      </form>
-    </div>
-  );
+if (!formData.username || !formData.email || !formData.password) {
+setError("All fields are required");
+return;
 }
+
+
+setError("");
+// Mock API call
+console.log("User Registered:", formData);
+
+
+setFormData({ username: "", email: "", password: "" });
+};
+
+
+return (
+<form onSubmit={handleSubmit}>
+<h2>Register (Controlled Form)</h2>
+
+
+{error && <p style={{ color: "red" }}>{error}</p>}
+<input
+type="text"
+name="username"
+placeholder="Username"
+value={formData.username}
+onChange={handleChange}
+/>
+<input
+type="email"
+name="email"
+placeholder="Email"
+value={formData.email}
+onChange={handleChange}
+/>
+
+
+<input
+type="password"
+name="password"
+placeholder="Password"
+value={formData.password}
+onChange={handleChange}
+/>
+<button type="submit">Register</button>
+</form>
+);
+};
+
 
 export default RegistrationForm;
